@@ -11,9 +11,8 @@ import { registerValidation, loginValidation, postCreateValidation } from './val
 import { UserController, PostController } from './controllers/index.js';
 
 mongoose
-  .connect(
-    'mongodb+srv://admin:wwwwww@cluster0.ofqdose.mongodb.net/blog?retryWrites=true&w=majority',
-  ).then(() => console.log('DB OK'))
+  .connect(process.env.MONGODB_URI)
+  .then(() => console.log('DB OK'))
   .catch(() => console.log('DB error, err'));
 
 const app = express();
@@ -58,7 +57,7 @@ app.patch(
   PostController.update,
 );
 
-app.listen(4444, (err) => {
+app.listen(process.env.Port || 4444, (err) => {
   if (err) {
     return console.log(err);
   }
